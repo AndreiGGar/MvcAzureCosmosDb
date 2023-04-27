@@ -38,8 +38,12 @@ namespace MvcAzureCosmosDb.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create(Vehiculo car)
+        public async Task<IActionResult> Create(Vehiculo car, string existemotor)
         {
+            if (existemotor == null)
+            {
+                car.Motor = null;
+            }
             await this.service.InsertVehiculoAsync(car);
             return RedirectToAction("Vehiculos");
         }
@@ -67,6 +71,18 @@ namespace MvcAzureCosmosDb.Controllers
         {
             await this.service.DeleteVehiculoAsync(id);
             return RedirectToAction("Vehiculos");
+        }
+
+        public IActionResult BuscarCoche()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> BuscarCoche(string marca)
+        {
+            List<Vehiculo> cars = await this.service.GetCochesMarcaAsync(marca);
+            return View(cars);
         }
     }
 }

@@ -37,6 +37,17 @@
                 <input asp-for="VelocidadMaxima" class="form-control" />
                 <span asp-validation-for="VelocidadMaxima" class="text-danger"></span>
             </div>
+            <input type="checkbox" id="existemotor" name="existemotor" value="true" />Vehiculo con motor
+            <div id="capamotor" style="display: none;">
+                <label>Tipo motor:</label>
+                <input type="text" name="Motor.Tipo" class="form-control" />
+                <label>Caballos:</label>
+                <input type="text" name="Motor.Caballos" class="form-control" />
+                <label>Cilindrada:</label>
+                <input type="text" name="Motor.Cilindrada" class="form-control" />
+                <label>Turbo:</label>
+                <input type="checkbox" name="Motor.Turbo" value="true" />
+            </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
@@ -49,5 +60,14 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+    <script>
+        $(document).ready(function () {
+            $("#existemotor").click(function () {
+                $("#capamotor").toggle();
+            })
+        })
+    </script>
 }
